@@ -11,9 +11,12 @@ public interface IProductService {
 
     void delete(Product loan);
 
-    List<Product>  listByName(String name);
+    List<Product> listByName(String name);
 
     List<Product> listByBrand(String brand);
 
     List<Product> list();
+
+    List<Product> leftOversList();
+
 }

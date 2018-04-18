@@ -93,7 +93,7 @@ public class RestApplicationTests {
 
 		ResponseEntity<List> entity = restTemplate.getForEntity("/product/list?name={name}", List.class, "S9");
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertTrue(java.util.Optional.ofNullable(entity.getBody().size()).get() == 1);
+		assertEquals(1, entity.getBody().size());
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class RestApplicationTests {
 
 		ResponseEntity<List> entity = restTemplate.getForEntity("/product/list?name={name}", List.class, "Samsung");
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertTrue(java.util.Optional.ofNullable(entity.getBody().size()).get() == 1);
+		assertEquals(1, entity.getBody().size());
 	}
 
 	@Test
@@ -124,6 +124,25 @@ public class RestApplicationTests {
 
 		ResponseEntity<List> entity = restTemplate.getForEntity("/product/list", List.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertEquals(3, java.util.Optional.ofNullable(entity.getBody()).get().size());
+		assertEquals(3, entity.getBody().size());
 	}
+
+	@Test
+	public void tesLeftOversList(){
+		Arrays.asList(
+				new Product("iPhone", "Apple", amount(200), 3),
+				new Product("S9", "Samsung", amount(100), 10),
+				new Product("Mi6", "Xiaomi", amount(20), 2)
+		).forEach(product ->
+				this.restTemplate.postForEntity("/product/create", product, Product.class));
+
+		ResponseEntity<List> entity = restTemplate.getForEntity("/product/leftovers", List.class);
+		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertEquals(2, entity.getBody().size());
+	}
+
+	private BigDecimal amount(int i) {
+		return BigDecimal.valueOf(i);
+	}
+
 }

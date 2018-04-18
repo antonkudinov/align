@@ -61,4 +61,13 @@ public class ProductServiceEndpoint {
 
 	}
 
+	@GET
+	@Produces("application/json")
+	@Path("leftovers")
+	public Response listLeftOvers() {
+		List<Product> res =  productService.leftOversList();
+		return Response.ok(res).build();
+
+	}
+
 }

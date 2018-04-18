@@ -14,6 +14,7 @@ import java.util.Optional;
  * This service implements basic functionality of product service
  */
 public class ProductService implements IProductService {
+	public static final int LEFTOVERS_QUANTITY = 5;
 	@Autowired private ProductRepository productRepository;
 
 	public Product create(Product product) {
@@ -45,6 +46,11 @@ public class ProductService implements IProductService {
 	@Override
 	public List<Product> list() {
 		return (List<Product>) productRepository.findAll();
+	}
+
+	@Override
+	public List<Product> leftOversList() {
+		return productRepository.findAllByQuantityLessThan(LEFTOVERS_QUANTITY);
 	}
 
 }
