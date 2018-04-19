@@ -27,8 +27,8 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void delete(Product product) {
-		productRepository.delete(product);
+	public void delete(long productId) {
+		productRepository.deleteById(productId);
 	}
 
 	@Override
@@ -52,5 +52,4 @@ public class ProductService implements IProductService {
 	public List<Product> leftOversList() {
 		return productRepository.findAllByQuantityLessThan(LEFTOVERS_QUANTITY);
 	}
-
 }

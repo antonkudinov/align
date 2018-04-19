@@ -5,11 +5,11 @@ import ru.akudinov.test.model.Product;
 import java.util.List;
 
 public interface IProductService {
-    Product create(Product loan);
+    Product create(Product product);
 
-    Product update(Product loan);
+    Product update(Product product);
 
-    void delete(Product loan);
+    void delete(long productId);
 
     List<Product> listByName(String name);
 
@@ -18,5 +18,4 @@ public interface IProductService {
     List<Product> list();
 
     List<Product> leftOversList();
-
 }
