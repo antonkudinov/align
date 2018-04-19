@@ -103,7 +103,7 @@ public class ProductServiceRestController {
 
         HttpHeaders httpHeader = new HttpHeaders();
         httpHeader.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        httpHeader.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=leftovers.xlsx");
+        httpHeader.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.xlsx");
         httpHeader.setContentLength(bytes.length);
 
         return new HttpEntity<>(bytes, httpHeader);

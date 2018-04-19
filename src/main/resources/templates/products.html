@@ -9,83 +9,73 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="/datatable.js"></script>
+    <script src="/products.js"></script>
 </head>
 
 <body>
-<h1>Products</h1>
+<h1>Products | <a href="/leftovers">Leftovers</a></h1>
 
-<div class="row">
-    <div class="col-lg-8 col-md-7 col-sm-6">
-        <form >
-            <div class="form-group">
-                <label for="product_name">Product Name:</label>
-                <input type="text" class="form-control" id="product_name"/>
-            </div>
-            <div class="form-group">
-                <label for="product_brand">Product Brand:</label>
-                <input type="text" class="form-control" id="product_brand"/>
-            </div>
-            <div class="form-group">
-                <label for="product_price">Price:</label>
-                <input type="text" class="form-control" id="product_price"/>
-            </div>
-            <div class="form-group">
-                <label for="product_quantity">Price:</label>
-                <input type="text" class="form-control" id="product_quantity"/>
-            </div>
-            <button type="submit" class="btn btn-default" id="btn_submit">Add New Product</button>
-        </form>
 
-    </div>
+<div class="col-lg-7 col-md-7 col-sm-6">
+    <form>
+        <div class="form-group">
+            <label for="product_name">Product Name:</label>
+            <input type="text" class="form-control" id="product_name"/>
+        </div>
+        <div class="form-group">
+            <label for="product_brand">Product Brand:</label>
+            <input type="text" class="form-control" id="product_brand"/>
+        </div>
+        <div class="form-group">
+            <label for="product_price">Price:</label>
+            <input type="text" class="form-control" id="product_price"/>
+        </div>
+        <div class="form-group">
+            <label for="product_quantity">Price:</label>
+            <input type="text" class="form-control" id="product_quantity"/>
+        </div>
+        <button type="submit" class="btn btn-default" id="btn_submit">Add New Product</button>
+    </form>
 </div>
 
-<table id="productsTable" class="display">
+<div class="col-lg-7 col-md-7 col-sm-6">
+    <table id="productsTable" class="display">
 
-    <!-- Header Table -->
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <!-- Footer Table -->
-    <tfoot>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Price</th>
-        <th>Quantity</th>
-    </tr>
-    </tfoot>
-</table>
-
+        <!-- Header Table -->
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+    </table>
+    <h2><a href="/product/list/xls">View in excel format</a></h2>
+</div>
 
 
 <script type="application/javascript">
     $(document).ready(function () {
-        $('#btn_submit').on("click",function (e) {
+        $('#btn_submit').on("click", function (e) {
             e.preventDefault();
             var productName, productPrice;
             productName = $('#product_name').val();
             productBrand = $('#product_brand').val();
             productPrice = $('#product_price').val();
             productQuantity = $('#product_quantity').val();
-            if($.trim(productName) === ""){
+            if ($.trim(productName) === "") {
                 alert("Product name cannot be empty");
             }
-            else if($.trim(productBrand) === ""){
+            else if ($.trim(productBrand) === "") {
                 alert("Product brand cannot be empty");
             }
-            else if(!$.trim($.isNumeric(productPrice))){
+            else if (!$.trim($.isNumeric(productPrice))) {
                 alert("Price must be numeric");
             }
-            else if(!$.trim($.isNumeric(productPrice))){
+            else if (!$.trim($.isNumeric(productPrice))) {
                 alert("Quamtity must be numeric");
             }
             else {
@@ -102,12 +92,24 @@
                     dataType: 'json',
                     timeout: 6000,
                     success: function (data) {
-                        if (confirm("Product " + data.id + " Saved")){
+                        if (confirm("Product " + data.id + " Saved")) {
+                            window.location.reload();
+                        }
+                    },
+                    error:function (data) {
+                        if (confirm("Product not saved: " + data)) {
                             window.location.reload();
                         }
                     }
                 });
             }
+        });
+
+        $('#btn_search').on("click", function (e) {
+            e.preventDefault();
+            var productName, productPrice;
+            productName = $('#product_name').val();
+            productBrand = $('#product_brand').val();
         });
     });
 </script>
