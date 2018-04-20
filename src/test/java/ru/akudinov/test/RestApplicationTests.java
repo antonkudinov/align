@@ -83,7 +83,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        post("/product")
+                        post("/api/product")
                                 .contentType(contentType)
                                 .content(json(product)))
                 .andExpect(status().isOk())
@@ -99,7 +99,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        post("/product")
+                        post("/api/product")
                                 .contentType(contentType)
                                 .content(json(product)))
                 .andExpect(status().isOk())
@@ -111,7 +111,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        put("/product/1")
+                        put("/api/product/1")
                                 .contentType(contentType)
                                 .content(json(product)))
                 .andExpect(status().isOk())
@@ -127,7 +127,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        get("/product/list?name=S9")
+                        get("/api/product/list?name=S9")
                                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("S9"));
@@ -142,7 +142,7 @@ public class RestApplicationTests {
                     try {
                         mockMvc
                                 .perform(
-                                        post("/product")
+                                        post("/api/product")
                                                 .with(user("admin").roles("ADMIN"))
                                                 .contentType(contentType)
                                                 .content(json(product)))
@@ -162,7 +162,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        get("/product/list?brand=Samsung")
+                        get("/api/product/list?brand=Samsung")
                                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("S9"));
@@ -175,7 +175,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        get("/product/list")
+                        get("/api/product/list")
                                 .contentType(contentType))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("length($)").value("3"));
@@ -188,7 +188,7 @@ public class RestApplicationTests {
 
         mockMvc
                 .perform(
-                        get("/product/list/leftovers")
+                        get("/api/product/list/leftovers")
                                 .contentType(contentType))
                 .andExpect(status().isOk());
     }

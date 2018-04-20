@@ -1,6 +1,6 @@
 $(document).ready( function () {
     var table = $('#productsTable').DataTable({
-        "sAjaxSource": "/product/list",
+        "sAjaxSource": "/api/product/list",
         "sAjaxDataProp": "",
         "order": [[ 0, "asc" ]],
         "aoColumns": [

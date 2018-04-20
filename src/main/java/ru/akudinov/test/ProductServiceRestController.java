@@ -27,30 +27,30 @@ public class ProductServiceRestController {
     private ApplicationContext applicationContext;
 
     @Autowired
-    public ProductServiceRestController(IProductService loanService) {
-        this.productService = loanService;
+    public ProductServiceRestController(IProductService productService) {
+        this.productService = productService;
     }
 
-    @PostMapping("product")
+    @PostMapping("/api/product")
     @ResponseBody
-    public Product create(@RequestBody Product loan) {
-        return productService.create(loan);
+    public Product create(@RequestBody Product product) {
+        return productService.create(product);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/product/{productId}", produces = "application/json", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.PUT, value = "/api//product/{productId}", produces = "application/json", consumes = "application/json")
     @ResponseBody
-    public Product update(@PathVariable("productId") long productId, @RequestBody Product loan) {
-        loan.setId(productId);
-        return productService.update(loan);
+    public Product update(@PathVariable("productId") long productId, @RequestBody Product product) {
+        product.setId(productId);
+        return productService.update(product);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/product/{productId}", produces = "application/json", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/api/product/{productId}", produces = "application/json", consumes = "application/json")
     public void delete(@PathVariable("productId") long productId) {
         productService.delete(productId);
     }
 
 
-    @GetMapping("/product/list")
+    @GetMapping("/api/product/list")
     @ResponseBody
     public List<Product> list(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "brand", required = false) String brand) {
         return name != null ? productService.listByName(name)
@@ -58,19 +58,19 @@ public class ProductServiceRestController {
                 : productService.list();
     }
 
-    @GetMapping("/product/list/leftovers")
+    @GetMapping("/api/product/list/leftovers")
     public List<Product> listLeftOvers() {
         return productService.leftOversList();
 
     }
 
-    @GetMapping(value = "/product/list/xls")
+    @GetMapping(value = "/api/product/list/xls")
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity getReportListAsXLS(@RequestParam(name = "name", required = false) String name, @RequestParam(name = "brand", required = false) String brand) {
         return createXls(list(name, brand));
     }
 
-    @GetMapping(value = "/product/list/leftovers/xls")
+    @GetMapping(value = "/api/product/list/leftovers/xls")
     @ResponseStatus(HttpStatus.OK)
     public HttpEntity getReportAsXLS() {
         return createXls(listLeftOvers());
